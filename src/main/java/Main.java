@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.net.URL;
 
 public class Main {
-    private final static URL FILE_XML = Main.class.getResource("song.xml");
-    private final static URL FILE_XSD = Main.class.getResource("song.xsd");
+    private final static URL FILE_XML = Main.class.getResource("books.xml");
+    private final static URL FILE_XSD = Main.class.getResource("books.xsd");
 
     public static void main(String[] args) {
         try {

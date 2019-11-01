@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Objects version="1">
+    <Object>
+        <Author>Толстой Лев</Author>
+        <Title>Метель</Title>
+    </Object>
+    <Object>
+        <Author>Толстой Лев</Author>
+        <Title>Юность</Title>
+    </Object>
+    <Object>
+        <Author>Пушкин Александр</Author>
+        <Title>Евгений Онегин</Title>
+    </Object>
+    <Object>
+        <Author>Пушкин Александр</Author>
+        <Title>Капитанская дочка</Title>
+    </Object>
+</Objects>

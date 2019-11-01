@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified">
+    <xs:element name="Books">
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded">
+                <xs:element name="Book">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Author">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Surname" type="xs:string"/>
+                                        <xs:element name="Name" type="xs:string"/>
+                                        <xs:element name="Birthday" type="xs:date"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Title" type="xs:string"/>
+                            <xs:element name="CountPages" type="xs:nonNegativeInteger"/>
+                            <xs:element name="Year" type="xs:gYear"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="version" default="1.0" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
