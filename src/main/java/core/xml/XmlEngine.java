@@ -20,11 +20,12 @@ public class XmlEngine {
     /**
      * Method transform data file by style sheet
      *
-     * @param pathXML is path of data file
-     * @param pathXSL is patch of stylesheet file
+     * @param pathXML       is path of data file
+     * @param pathXSL       is patch of stylesheet file
+     * @param pathDirectory is patch of output directory
      * @return true is success, else if files not exist or get exception
      */
-    public static boolean transformFile(String pathXML, String pathXSL) {
+    public static boolean transformFile(String pathXML, String pathXSL, String pathDirectory) {
         File dataFile = new File(pathXML);
         File stylesheet = new File(pathXSL);
         if (!dataFile.isFile() || !stylesheet.isFile()) {
@@ -35,7 +36,13 @@ public class XmlEngine {
         try {
             Transformer transformer = factory.newTransformer(xslt);
             Source xml = new StreamSource(dataFile);
-            transformer.transform(xml, new StreamResult(new File("./data/out/out.xml")));
+            File directory = new File(pathDirectory);
+            if (!directory.exists()) {
+                if (!directory.mkdirs()) {
+                    return false;
+                }
+            }
+            transformer.transform(xml, new StreamResult(new File(directory.getPath() + "/out.xml")));
             return true;
         } catch (TransformerException e) {
             e.printStackTrace();
@@ -54,6 +61,7 @@ public class XmlEngine {
         File xmlFile = new File(pathXML);
         File xsdFile = new File(pathXSD);
         if (!xmlFile.isFile() || !xsdFile.isFile()) {
+            System.out.println("xml isFile");
             return false;
         }
         Source xmlSource = new StreamSource(xmlFile);
@@ -62,10 +70,10 @@ public class XmlEngine {
             Schema schema = schemaFactory.newSchema(xsdFile);
             Validator validator = schema.newValidator();
             validator.validate(xmlSource);
-            System.out.println(xmlFile.getPath() + " is valid");
+            System.out.println("File : " + xmlFile.getName() + " is valid");
             return true;
         } catch (SAXException e) {
-            System.out.println(xmlSource.getSystemId() + " is NOT valid reason:" + e);
+            System.out.println("File : " + xmlFile.getName() + " is NOT valid reason:" + e);
             return false;
         } catch (IOException e) {
             e.printStackTrace();

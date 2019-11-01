@@ -7,3 +7,6 @@
 2. Сделать юнит тесты на JUnit 5.
 3. Вычислить покрытие кода тестами используя JaCoCo.
 4. Покрытие должно быть 100%, либо объяснено почему 100% недостижимо.
+
+=====================================================
+java -jar TransformXML-1.0-jar-with-dependencies.jar C:\Users\patseios\Desktop\sbox\Project\TransformXML\src\main\resources\res\books.xml C:\Users\patseios\Desktop\sbox\Project\TransformXML\src\main\resources\res\books.xsd C:\Users\patseios\Desktop\sbox\Project\TransformXML\src\main\resources\res\books.xsl C:\Users\patseios\Desktop\sbox\Project

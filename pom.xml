@@ -3,11 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>TransformXML</groupId>
+    <groupId>com.test</groupId>
     <artifactId>TransformXML</artifactId>
     <version>1.0</version>
-
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <build>
         <plugins>
             <plugin>
@@ -42,6 +44,21 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+<!--                <includes>-->
+<!--                    <include>**/*.xml</include>-->
+<!--                    <include>**/*.xsd</include>-->
+<!--                    <include>**/*.xsl</include>-->
+<!--                </includes>-->
+<!--                <excludes>-->
+<!--                    <exclude>**/*.xml</exclude>-->
+<!--                    <exclude>**/*.xsd</exclude>-->
+<!--                    <exclude>**/*.xsl</exclude>-->
+<!--                </excludes>-->
+            </resource>
+        </resources>
     </build>
     <dependencies>
         <dependency>
@@ -67,4 +84,5 @@
             <version>2.12.1</version>
         </dependency>
     </dependencies>
+
 </project>
