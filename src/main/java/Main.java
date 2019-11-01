@@ -4,9 +4,9 @@ import java.net.URL;
 
 
 public class Main {
-    private final static URL FILE_XML = Main.class.getResource("books.xml");
-    private final static URL FILE_XSD = Main.class.getResource("books.xsd");
-    private final static URL FILE_XSL = Main.class.getResource("books.xsl");
+    private final static URL FILE_XML = Main.class.getResource("data/books.xml");
+    private final static URL FILE_XSD = Main.class.getResource("data/books.xsd");
+    private final static URL FILE_XSL = Main.class.getResource("data/books.xsl");
 
     //static final Logger userLogger = LogManager.getLogger(Main.class);
 
