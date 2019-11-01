@@ -1,30 +1,19 @@
-import org.xml.sax.SAXException;
+import core.xml.XmlEngine;
 
-import javax.xml.XMLConstants;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
+
 
 public class Main {
     private final static URL FILE_XML = Main.class.getResource("books.xml");
     private final static URL FILE_XSD = Main.class.getResource("books.xsd");
+    private final static URL FILE_XSL = Main.class.getResource("books.xsl");
+
+    //static final Logger userLogger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
-        try {
-
-            Source xmlFile = new StreamSource(new File(FILE_XSD.getFile()));
-            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = schemaFactory.newSchema(FILE_XSD);
-            Validator validator = schema.newValidator();
-            validator.validate(xmlFile);
-            System.out.println(xmlFile.getSystemId() + " is valid");
-        } catch (SAXException | IOException e) {
-            e.printStackTrace();
+        if (XmlEngine.validateFIle(FILE_XML.getPath(), FILE_XSD.getPath())) {
+            boolean b = XmlEngine.transformFile(FILE_XML.getPath(), FILE_XSL.getPath());
         }
     }
+
 }
