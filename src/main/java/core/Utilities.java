@@ -1,22 +1,40 @@
 package core;
 
+import java.io.File;
+
 public class Utilities {
 
-    //((-(xml|xsd|xslt))\s{1,}(([A-z]+:){0,1}((\/|\\)[A-z0-9-_+]+(\/|\\))){0,1})([A-z0-9]+\.(xml|xsd|xslt))
-    public static final String COMMAND_REGEXP = "((-(xml|xsd|xslt))\\s{1,}(([A-z]+:){0,1}((\\/|\\\\)[A-z0-9-_+]+(\\/|\\\\))){0,1})([A-z0-9]+\\.(xml|xsd|xslt))";
+    private static final int COUNT_ARGS = 4;
 
-    public static String[] getPathFiles(String[] args) {
-        String[] pathFiles = new String[4];
-        for (int i = 0; i < args.length; i++) {
-            String fileExtension = args[i].substring(args[i].length() - 3).toUpperCase();
-            if (fileExtension.equals("XML") || fileExtension.equals("XSD") || fileExtension.equals("XSL")) {
-                System.out.println(fileExtension.toUpperCase() + " : " + args[i]);
-            } else {
-                System.out.println("Folder output : " + args[i]);
+    public static String[] getPaths(String[] args, String location) throws PathException {
+        if (args.length == COUNT_ARGS) {
+            String[] paths = new String[args.length];
+            for (int i = 0; i < args.length; i++) {
+                File f = args[i].contains("\\") ? new File(args[i]) : new File(location + "\\" + args[i]);
+                if (f.exists()) {
+                    if (f.isFile()) {
+                        if ((f.getAbsolutePath()).toLowerCase().contains(".xml")) {
+                            paths[0] = f.getAbsolutePath();
+                        } else if ((f.getAbsolutePath()).toLowerCase().contains(".xsd")) {
+                            paths[1] = f.getAbsolutePath();
+                        } else if ((f.getAbsolutePath()).toLowerCase().contains(".xsl")) {
+                            paths[2] = f.getAbsolutePath();
+                        }
+                    } else {
+                        paths[3] = f.getAbsolutePath();
+                    }
+                } else {
+                    throw new PathException("One of the options does not apply to a file or folder");
+                }
             }
-            pathFiles[i] = args[i];
+            for (String s : paths) {
+                if (s == null) {
+                    throw new PathException("One  or more  option(s) do not get");
+                }
+            }
+            return paths;
+        } else {
+            throw new PathException("Number of arguments should be 4");
         }
-        return pathFiles;
     }
 }
-

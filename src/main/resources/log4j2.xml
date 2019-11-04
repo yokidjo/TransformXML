@@ -1,39 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration status="WARN">
-    <?xml version="1.0" encoding="UTF-8"?>
-    <configuration status="WARN">
-        <appenders>
-            <File name="infoMsg" fileName="logs/info.log" immediateFlush="true">
-                <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-                <Filters>
-                    <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
-                    <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
-                    <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
-                </Filters>
-            </File>
-            <File name="typoPath" fileName="logs/typoPath.log" immediateFlush="true">
-                <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-                <Filters>
-                    <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
-                    <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
-                </Filters>
-            </File>
-            <File name="errorMsg" fileName="logs/error.log" immediateFlush="true">
-                <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-            </File>
-        </appenders>
-        <loggers>
-            <root level="debug">
-                <appender-ref ref="infoMsg" level="info"/>
-                <appender-ref ref="typoPath" level="warn"/>
-                <appender-ref ref="errorMsg" level="error"/>
-            </root>
-        </loggers>
-    </configuration>
-    <!--    <appenders>-->
-    <!--    </appenders>-->
-    <!--    <loggers>-->
-    <!--        <root level ="error">-->
-    <!--        </root>-->
-    <!--    </loggers>-->
+    <appenders>
+        <File name="infoMsg" fileName="log/info.log" immediateFlush="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Filters>
+                <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+        </File>
+        <File name="typoPath" fileName="log/typoPath.log" immediateFlush="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Filters>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+        </File>
+        <File name="errorMsg" fileName="log/error.log" immediateFlush="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </appenders>
+    <loggers>
+        <root level="debug">
+            <appender-ref ref="infoMsg" level="info"/>
+            <appender-ref ref="typoPath" level="warn"/>
+            <appender-ref ref="errorMsg" level="error"/>
+        </root>
+    </loggers>
 </configuration>
+

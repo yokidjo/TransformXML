@@ -1,5 +1,7 @@
 package core.xml;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -17,6 +19,8 @@ import java.io.IOException;
 
 public class XmlEngine {
 
+    private static Logger logger = LogManager.getRootLogger();
+
     /**
      * Method transform data file by style sheet
      *
@@ -26,16 +30,17 @@ public class XmlEngine {
      * @return true is success, else if files not exist or get exception
      */
     public static boolean transformFile(String pathXML, String pathXSL, String pathDirectory) {
-        File dataFile = new File(pathXML);
+        File xmlFile = new File(pathXML);
         File stylesheet = new File(pathXSL);
-        if (!dataFile.isFile() || !stylesheet.isFile()) {
+        if (!xmlFile.isFile() || !stylesheet.isFile()) {
+            logger.error("Not found file by path");
             return false;
         }
         TransformerFactory factory = TransformerFactory.newInstance();
         Source xslt = new StreamSource(stylesheet);
         try {
             Transformer transformer = factory.newTransformer(xslt);
-            Source xml = new StreamSource(dataFile);
+            Source xml = new StreamSource(xmlFile);
             File directory = new File(pathDirectory);
             if (!directory.exists()) {
                 if (!directory.mkdirs()) {
@@ -43,9 +48,11 @@ public class XmlEngine {
                 }
             }
             transformer.transform(xml, new StreamResult(new File(directory.getPath() + "/out.xml")));
+            logger.info("Transform file successfully. " + xmlFile.getName());
             return true;
         } catch (TransformerException e) {
-            e.printStackTrace();
+            logger.info("Transform file unsuccessfully. " + xmlFile.getName());
+            logger.error(e.getMessage());
             return false;
         }
     }
@@ -61,7 +68,7 @@ public class XmlEngine {
         File xmlFile = new File(pathXML);
         File xsdFile = new File(pathXSD);
         if (!xmlFile.isFile() || !xsdFile.isFile()) {
-            System.out.println("xml isFile");
+            logger.info("Not found file by path" + xmlFile.getName() + ", " + xsdFile.getName());
             return false;
         }
         Source xmlSource = new StreamSource(xmlFile);
@@ -70,13 +77,12 @@ public class XmlEngine {
             Schema schema = schemaFactory.newSchema(xsdFile);
             Validator validator = schema.newValidator();
             validator.validate(xmlSource);
-            System.out.println("File : " + xmlFile.getName() + " is valid");
+            validator.setErrorHandler(new LineNumberErrorHandler());
+            logger.info("Check file successfully. " + xmlFile.getName());
             return true;
-        } catch (SAXException e) {
-            System.out.println("File : " + xmlFile.getName() + " is NOT valid reason:" + e);
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (SAXException | IOException e) {
+            logger.info("Check file unsuccessfully. " + xmlFile.getName());
+            logger.error(e.getMessage());
             return false;
         }
     }
