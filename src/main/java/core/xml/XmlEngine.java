@@ -16,6 +16,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class XmlEngine {
     public static final String OUT_FILE = "out.xml";
@@ -28,13 +29,13 @@ public class XmlEngine {
      * @param pathXSL       is patch of stylesheet file
      * @param pathDirectory is patch of output directory
      * @return true is success, else if files not exist or get exception
+     * @throws XmlException not found file, transform unsuccessfully
      */
-    public static boolean transformFile(String pathXML, String pathXSL, String pathDirectory) {
+    public static boolean transformFile(String pathXML, String pathXSL, String pathDirectory) throws XmlException {
         File xmlFile = new File(pathXML);
         File stylesheet = new File(pathXSL);
         if (!xmlFile.isFile() || !stylesheet.isFile()) {
-            logger.error("Not found file by path");
-            return false;
+            throw new XmlException("Not found file by path");
         }
         TransformerFactory factory = TransformerFactory.newInstance();
         Source xslt = new StreamSource(stylesheet);
@@ -47,13 +48,17 @@ public class XmlEngine {
                     return false;
                 }
             }
-            transformer.transform(xml, new StreamResult(new File(directory.getPath() + "/" + OUT_FILE)));
+            StreamResult streamResult = new StreamResult(
+                    new File(Paths.get(directory.getAbsolutePath(), OUT_FILE).toString())
+            );
+
+            transformer.transform(xml, streamResult);
             logger.info("Transform file successfully. " + xmlFile.getName());
             return true;
         } catch (TransformerException e) {
             logger.info("Transform file unsuccessfully. " + xmlFile.getName());
-            logger.error(e.getMessage());
-            return false;
+            throw new XmlException("Transform file unsuccessfully. " + xmlFile.getName() +
+                    "\n" + e.getMessage());
         }
     }
 

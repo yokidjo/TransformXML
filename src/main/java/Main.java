@@ -1,10 +1,12 @@
 import core.PathException;
-import core.Utilities;
+import core.TransformOption;
 import core.xml.XmlEngine;
+import core.xml.XmlException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 import static core.xml.XmlEngine.OUT_FILE;
 
@@ -18,20 +20,26 @@ public class Main {
         logger.info("Start task.");
         if (args.length == 4) {
             try {
-                String[] pathFiles = Utilities.getPaths(args, LOCATION);
-                System.out.println("XML : " + pathFiles[0]);
-                System.out.println("XSD : " + pathFiles[1]);
-                System.out.println("XLS : " + pathFiles[2]);
-                System.out.println("Out : " + pathFiles[3]);
-                System.out.println("Logs : " + LOCATION + "\\logs");
-                if (XmlEngine.validateFIle(pathFiles[0], pathFiles[1])) {
-                    if (XmlEngine.transformFile(pathFiles[0], pathFiles[2], pathFiles[3])) {
-                        if (XmlEngine.validateFIle(pathFiles[3] + "\\" + OUT_FILE, pathFiles[1])) {
+                TransformOption trOption = TransformOption.parseArgs(args, Paths.get(LOCATION));
+                System.out.println("XML : " + trOption.getXmlPath());
+                System.out.println("XSD : " + trOption.getXmlPath());
+                System.out.println("XLS : " + trOption.getXmlPath());
+                System.out.println("Out : " + trOption.getXmlPath());
+                System.out.println("Logs : " + Paths.get(LOCATION, "logs"));
+                if (XmlEngine.validateFIle(trOption.getXmlPath().toAbsolutePath().toString()
+                        , trOption.getXsdPath().toAbsolutePath().toString())) {
+                    if (XmlEngine.transformFile(
+                            trOption.getXmlPath().toAbsolutePath().toString(),
+                            trOption.getXslPath().toAbsolutePath().toString(),
+                            trOption.getOutPath().toAbsolutePath().toString()
+                    )) {
+                        if (XmlEngine.validateFIle(Paths.get(trOption.getOutPath().toAbsolutePath().toString(), OUT_FILE).toAbsolutePath().toString(),
+                                trOption.getXsdPath().toAbsolutePath().toString())) {
                             System.out.println("Task is done.");
                         }
                     }
                 }
-            } catch (PathException e) {
+            } catch (PathException | XmlException e) {
                 System.out.println("Error! Check logs");
                 logger.error(e.getMessage());
             }

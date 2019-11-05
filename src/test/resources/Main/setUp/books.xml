@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Books version="1.0">
+    <Book>
+        <Author>
+            <Surname>Толстой</Surname>
+            <Name>Лев</Name>
+            <Birthday>1983-09-09</Birthday>
+        </Author>
+        <Title>Метель</Title>
+        <CountPages>47</CountPages>
+        <Year>1856</Year>
+    </Book>
+    <Book>
+        <Author>
+            <Surname>Толстой</Surname>
+            <Name>Лев</Name>
+            <Birthday>1983-09-09</Birthday>
+        </Author>
+        <Title>Юность</Title>
+        <CountPages>191</CountPages>
+        <Year>1857</Year>
+    </Book>
+    <Book>
+        <Author>
+            <Surname>Пушкин</Surname>
+            <Name>Александр</Name>
+            <Birthday>1799-06-06</Birthday>
+        </Author>
+        <Title>Евгений Онегин</Title>
+        <CountPages>404</CountPages>
+        <Year>1830</Year>
+    </Book>
+    <Book>
+        <Author>
+            <Surname>Пушкин</Surname>
+            <Name>Александр</Name>
+            <Birthday>1799-06-06</Birthday>
+        </Author>
+        <Title>Капитанская дочка</Title>
+        <CountPages>560</CountPages>
+        <Year>1836</Year>
+    </Book>
+</Books>
