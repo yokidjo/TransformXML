@@ -21,24 +21,9 @@ public class Main {
         if (args.length == 4) {
             try {
                 TransformOption trOption = TransformOption.parseArgs(args, Paths.get(LOCATION));
-                System.out.println("XML : " + trOption.getXmlPath());
-                System.out.println("XSD : " + trOption.getXmlPath());
-                System.out.println("XLS : " + trOption.getXmlPath());
-                System.out.println("Out : " + trOption.getXmlPath());
-                System.out.println("Logs : " + Paths.get(LOCATION, "logs"));
-                if (XmlEngine.validateFIle(trOption.getXmlPath().toAbsolutePath().toString()
-                        , trOption.getXsdPath().toAbsolutePath().toString())) {
-                    if (XmlEngine.transformFile(
-                            trOption.getXmlPath().toAbsolutePath().toString(),
-                            trOption.getXslPath().toAbsolutePath().toString(),
-                            trOption.getOutPath().toAbsolutePath().toString()
-                    )) {
-                        if (XmlEngine.validateFIle(Paths.get(trOption.getOutPath().toAbsolutePath().toString(), OUT_FILE).toAbsolutePath().toString(),
-                                trOption.getXsdPath().toAbsolutePath().toString())) {
-                            System.out.println("Task is done.");
-                        }
-                    }
-                }
+                printInfo(trOption);
+                transformFile(trOption);
+                System.out.println("Task done.");
             } catch (PathException | XmlException e) {
                 System.out.println("Error! Check logs");
                 logger.error(e.getMessage());
@@ -48,5 +33,28 @@ public class Main {
                     "the path to the xml, xsd, xsl file and the path to the output folder");
         }
         logger.info("End task.");
+    }
+
+    private static void transformFile(TransformOption trOption) throws XmlException {
+        XmlEngine.validateFIle(
+                trOption.getXmlPath().toAbsolutePath(),
+                trOption.getXsdPath().toAbsolutePath()
+        );
+        XmlEngine.transformFile(
+                trOption.getXmlPath().toAbsolutePath(),
+                trOption.getXslPath().toAbsolutePath(),
+                trOption.getOutPath().toAbsolutePath()
+        );
+        XmlEngine.validateFIle(
+                Paths.get(trOption.getOutPath().toAbsolutePath().toString(), OUT_FILE).toAbsolutePath(),
+                trOption.getXsdPath().toAbsolutePath());
+    }
+
+    private static void printInfo(TransformOption trOption) {
+        System.out.println("XML : " + trOption.getXmlPath());
+        System.out.println("XSD : " + trOption.getXmlPath());
+        System.out.println("XLS : " + trOption.getXmlPath());
+        System.out.println("Out : " + trOption.getXmlPath());
+        System.out.println("Logs : " + Paths.get(LOCATION, "logs"));
     }
 }
