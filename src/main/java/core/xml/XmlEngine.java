@@ -68,7 +68,7 @@ public class XmlEngine {
         File xmlFile = new File(pathXML);
         File xsdFile = new File(pathXSD);
         if (!xmlFile.isFile() || !xsdFile.isFile()) {
-            logger.info("Not found file by path" + xmlFile.getName() + ", " + xsdFile.getName());
+            logger.info("Not found file by path");
             return false;
         }
         Source xmlSource = new StreamSource(xmlFile);

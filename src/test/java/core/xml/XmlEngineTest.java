@@ -30,4 +30,28 @@ class XmlEngineTest {
         boolean expected = XmlEngine.validateFIle(pathXML, pathXSD);
         assertTrue(expected);
     }
+
+    @Test
+    void testNotExistFileTransformFile() {
+        String pathXML = "F:\\file";
+        String pathXLS = "F:\\file";
+        String pathOuPut = "F:\\file";
+        assertTrue(!XmlEngine.transformFile(pathXML, pathXLS, pathOuPut));
+    }
+
+    @Test
+    void testNotExistFilevalidateFIle() {
+        String pathXML = "F:\\file";
+        String pathXSD = "F:\\file";
+        String pathOuPut = "F:\\file";
+        assertTrue(!XmlEngine.validateFIle(pathXML, pathXSD));
+    }
+
+    @Test
+    void testNotExistDirectoryTransformFile() {
+        String pathOuPut = "F:\\out";
+        assertTrue(!XmlEngine.transformFile(pathXML, pathXSL, pathOuPut));
+    }
+
+
 }

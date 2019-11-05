@@ -14,7 +14,6 @@ public class Main {
 
     public static void main(String[] args) {
         if (args.length == 4) {
-            System.out.println();
             try {
                 String[] pathFiles = Utilities.getPaths(args, LOCATION);
                 System.out.println("XML : " + pathFiles[0]);
@@ -23,11 +22,13 @@ public class Main {
                 System.out.println("Out : " + pathFiles[3]);
                 System.out.println("Logs : " + LOCATION + "\\logs");
                 if (XmlEngine.validateFIle(pathFiles[0], pathFiles[1])) {
-                    if(XmlEngine.transformFile(pathFiles[0], pathFiles[2], pathFiles[3])){
+                    if (XmlEngine.transformFile(pathFiles[0], pathFiles[2], pathFiles[3])) {
+                        System.out.println("Transform file success.");
                         //TODO validate out file by scheme
                     }
                 }
             } catch (PathException e) {
+                System.out.println("Error! Check logs");
                 logger.error(e.getMessage());
             }
         } else {

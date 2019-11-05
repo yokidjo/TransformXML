@@ -6,6 +6,14 @@ public class Utilities {
 
     private static final int COUNT_ARGS = 4;
 
+    /**
+     * Method return array paths
+     *
+     * @param args     array with paths
+     * @param location folder location files, when path not absolute
+     * @return array paths
+     * @throws PathException when file not exist or bad path
+     */
     public static String[] getPaths(String[] args, String location) throws PathException {
         if (args.length == COUNT_ARGS) {
             String[] paths = new String[args.length];
