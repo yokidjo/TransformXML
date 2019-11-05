@@ -18,7 +18,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class XmlEngine {
-
+    public static final String OUT_FILE = "out.xml";
     private static Logger logger = LogManager.getRootLogger();
 
     /**
@@ -47,7 +47,7 @@ public class XmlEngine {
                     return false;
                 }
             }
-            transformer.transform(xml, new StreamResult(new File(directory.getPath() + "/out.xml")));
+            transformer.transform(xml, new StreamResult(new File(directory.getPath() + "/" + OUT_FILE)));
             logger.info("Transform file successfully. " + xmlFile.getName());
             return true;
         } catch (TransformerException e) {

@@ -34,7 +34,7 @@ class MainTest {
         PrintStream printStream = System.out;
         System.setOut(new PrintStream(output));
         Main.main(optionValid);
-        assertTrue(output.toString().replaceAll("\n", "").contains("Transform file success."),
+        assertTrue(output.toString().replaceAll("\n", "").contains("Task is done."),
                 "Successfully");
     }
 

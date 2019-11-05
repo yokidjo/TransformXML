@@ -6,6 +6,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 
+import static core.xml.XmlEngine.OUT_FILE;
+
 
 public class Main {
     private static final String LOCATION = new File(Main.class.getProtectionDomain().getCodeSource().
@@ -13,6 +15,7 @@ public class Main {
     private static Logger logger = LogManager.getRootLogger();
 
     public static void main(String[] args) {
+        logger.info("Start task.");
         if (args.length == 4) {
             try {
                 String[] pathFiles = Utilities.getPaths(args, LOCATION);
@@ -23,8 +26,9 @@ public class Main {
                 System.out.println("Logs : " + LOCATION + "\\logs");
                 if (XmlEngine.validateFIle(pathFiles[0], pathFiles[1])) {
                     if (XmlEngine.transformFile(pathFiles[0], pathFiles[2], pathFiles[3])) {
-                        System.out.println("Transform file success.");
-                        //TODO validate out file by scheme
+                        if (XmlEngine.validateFIle(pathFiles[3] + "\\" + OUT_FILE, pathFiles[1])) {
+                            System.out.println("Task is done.");
+                        }
                     }
                 }
             } catch (PathException e) {
@@ -35,5 +39,6 @@ public class Main {
             System.out.println("Please, Run the application with 4 options:\n" +
                     "the path to the xml, xsd, xsl file and the path to the output folder");
         }
+        logger.info("End task.");
     }
 }
