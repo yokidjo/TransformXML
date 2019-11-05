@@ -23,9 +23,9 @@ public class Main {
                 System.out.println("Out : " + pathFiles[3]);
                 System.out.println("Logs : " + LOCATION + "\\logs");
                 if (XmlEngine.validateFIle(pathFiles[0], pathFiles[1])) {
-
-                    boolean b = XmlEngine.transformFile(pathFiles[0], pathFiles[2], pathFiles[3]);
-                    System.out.println(b);
+                    if(XmlEngine.transformFile(pathFiles[0], pathFiles[2], pathFiles[3])){
+                        //TODO validate out file by scheme
+                    }
                 }
             } catch (PathException e) {
                 logger.error(e.getMessage());
