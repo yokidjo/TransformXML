@@ -2,7 +2,7 @@ package core;
 
 import java.io.File;
 
-public class Utilities {
+public final class Utilities {
 
     private static final int COUNT_ARGS = 4;
 
@@ -27,6 +27,8 @@ public class Utilities {
                             paths[1] = f.getAbsolutePath();
                         } else if ((f.getAbsolutePath()).toLowerCase().contains(".xsl")) {
                             paths[2] = f.getAbsolutePath();
+                        } else {
+                            throw new PathException("Not right file type");
                         }
                     } else {
                         paths[3] = f.getAbsolutePath();

@@ -54,4 +54,10 @@ class XmlEngineTest {
     }
 
 
+    @Test
+    void testConstructor() {
+        XmlEngine obj = new XmlEngine();
+        assertNotNull(obj);
+    }
+
 }

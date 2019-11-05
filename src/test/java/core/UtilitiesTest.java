@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 class UtilitiesTest {
@@ -55,11 +56,11 @@ class UtilitiesTest {
     }
 
     @Test
-    void testFormatFilesBranches() {
+    void testNotRightType() {
         String[] expected = {
                 "C:\\Users\\patseios\\Desktop\\sbox\\Project\\TransformXML\\src\\main\\resources\\res\\books.xml",
                 "C:\\Users\\patseios\\Desktop\\sbox\\Project\\TransformXML\\src\\main\\resources\\res\\books.xsd",
-                "C:\\Users\\patseios\\Desktop\\sbox\\Project\\TransformXML\\src\\main\\resources\\res\\books.txt",
+                "C:\\Users\\patseios\\Desktop\\sbox\\Project\\TransformXML\\src\\main\\resources\\test\\books.txt",
                 "C:\\Users\\patseios\\Desktop\\sbox\\Project"};
         Assertions.assertThrows(PathException.class, () -> Utilities.getPaths(expected,
                 ""));
@@ -89,5 +90,11 @@ class UtilitiesTest {
     void testCountOptions() {
         String[] expected = {"C:\\Users\\patseios\\Desktop\\sbox\\Project1"};
         Assertions.assertThrows(PathException.class, () -> Utilities.getPaths(expected, ""));
+    }
+
+    @Test
+    void testConstructor() {
+        Utilities obj = new Utilities();
+        assertNotNull(obj);
     }
 }

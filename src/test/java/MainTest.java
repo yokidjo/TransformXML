@@ -49,6 +49,7 @@ class MainTest {
                 "Please, Run the application with 4 options:the path to the xml, xsd, xsl file and the path to the output folder\r",
                 "Successfully");
     }
+
     @Test
     void testCatchBlock() {
         PrintStream printStream = System.out;
@@ -56,5 +57,11 @@ class MainTest {
         Main.main(notExistPath);
         assertTrue(output.toString().replaceAll("\n", "").contains("Error!"),
                 "Successfully");
+    }
+
+    @Test
+    void testConstructor() {
+        Main obj = new Main();
+        assertNotNull(obj);
     }
 }
