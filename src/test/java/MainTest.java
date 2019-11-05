@@ -27,18 +27,18 @@ class MainTest {
                 new File(
                         "src/test/resources/Main/setUp/books.xsl").getAbsolutePath()
         };
-
-        optionNotValid = new String[]{"string"};
         notExistPath = new String[]{
-                "C:\\Users\\patseios\\Desktop\\sbox\\Project",
-                "C:\\Users\\patseios\\Desktop\\sbox\\Project\\TransformXML\\src\\main\\resources\\res\\books.xml",
-                "C:\\Users\\patseios\\Desktop\\sbox\\Project\\TransformXML\\src\\main\\resources\\res\\books.xsd",
-                "C:\\Users\\patseios\\Desktop\\sbox\\Project\\TransformXML\\src\\main\\resources\\res\\books.xsd"};
+                "A:\\TMP",
+                "A:\\TMP\\books.xml",
+                "A:\\TMP\\books.xsd",
+                "A:\\TMP\\books.xsd"
+        };
+        optionNotValid = new String[]{"string"};
 
     }
 
     @Test
-    void main() {
+    void allParametersAreValid() {
         PrintStream printStream = System.out;
         System.setOut(new PrintStream(output));
         Main.main(optionValid);
@@ -57,7 +57,7 @@ class MainTest {
     }
 
     @Test
-    void testCatchBlock() {
+    void testTakeException() {
         PrintStream printStream = System.out;
         System.setOut(new PrintStream(output));
         Main.main(notExistPath);
