@@ -5,7 +5,10 @@ import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
-import javax.xml.transform.*;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
@@ -28,7 +31,7 @@ public class XmlEngine {
      * @param pathXSD is path of XML schema
      * @throws XmlException an error occurred while parsing XML ,an error occurred while while work with file
      */
-    public static void validateFIle(Path pathXML, Path pathXSD) throws XmlException {
+    public static void validateFile(Path pathXML, Path pathXSD) throws XmlException {
         File xmlFile = new File(pathXML.toAbsolutePath().toString());
         File xsdFile = new File(pathXSD.toAbsolutePath().toString());
         existFiles(xmlFile, xsdFile);
@@ -71,10 +74,9 @@ public class XmlEngine {
             );
             transformer.transform(xmlSource, streamResult);
             logger.info("Transform file successfully. " + xmlFile.getName());
-        } catch (TransformerConfigurationException e) {
-            throw new XmlException("Transform file unsuccessfully. Not create factory transform. " + "\n" + e.getMessage());
+
         } catch (TransformerException e) {
-            throw new XmlException("Transform file unsuccessfully. Transform file unsuccessfully. " + xmlFile.getName() +
+            throw new XmlException("Transform file unsuccessfully. XSL transform exception. " + xmlFile.getName() +
                     "\n" + e.getMessage());
         } catch (IOException e) {
             throw new XmlException("Transform file unsuccessfully. Can not create directory. " + e.getMessage());
@@ -102,7 +104,7 @@ public class XmlEngine {
      * @throws XmlException path not file
      */
     private static void existFiles(File xmlFile, File stylesheet) throws XmlException {
-        if (!xmlFile.isFile() || !stylesheet.isFile()) {
+        if (!xmlFile.isFile() | !stylesheet.isFile()) {
             throw new XmlException("Not found file by path");
         }
     }

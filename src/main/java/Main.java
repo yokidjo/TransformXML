@@ -36,7 +36,7 @@ public class Main {
     }
 
     private static void transformFile(TransformOption trOption) throws XmlException {
-        XmlEngine.validateFIle(
+        XmlEngine.validateFile(
                 trOption.getXmlPath().toAbsolutePath(),
                 trOption.getXsdPath().toAbsolutePath()
         );
@@ -45,7 +45,7 @@ public class Main {
                 trOption.getXslPath().toAbsolutePath(),
                 trOption.getOutPath().toAbsolutePath()
         );
-        XmlEngine.validateFIle(
+        XmlEngine.validateFile(
                 Paths.get(trOption.getOutPath().toAbsolutePath().toString(), OUT_FILE).toAbsolutePath(),
                 trOption.getXsdPath().toAbsolutePath());
     }
