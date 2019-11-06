@@ -2,8 +2,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,19 +16,26 @@ class MainTest {
     private String[] optionNotValid;
     private String[] notExistPath;
 
-
     @BeforeEach
     void setUp() {
+        Path  out = Paths.get("src/test/resources/Main/out");
+
+        if (!Files.exists(out)) {
+            try {
+                out = Files.createDirectories(out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         optionValid = new String[]{
-                new File(
-                        "src/test/resources/Main/out").getAbsolutePath(),
-                new File(
-                        "src/test/resources/Main/setUp/books.xml").getAbsolutePath(),
-                new File(
-                        "src/test/resources/Main/setUp/books.xsd").getAbsolutePath(),
-                new File(
-                        "src/test/resources/Main/setUp/books.xsl").getAbsolutePath()
+                out.toAbsolutePath().toString(),
+                Paths.get(
+                        "src/test/resources/Main/setUp/books.xml").toAbsolutePath().toString(),
+                Paths.get(
+                        "src/test/resources/Main/setUp/books.xsd").toAbsolutePath().toString(),
+                Paths.get(
+                        "src/test/resources/Main/setUp/books.xsl").toAbsolutePath().toString()
         };
         notExistPath = new String[]{
                 "A:\\TMP",

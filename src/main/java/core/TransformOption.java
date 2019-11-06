@@ -81,7 +81,7 @@ public class TransformOption {
     /**
      * Method check type file and add to array
      *
-     * @param path checked path
+     * @param path  checked path
      * @param paths array paths where add path
      * @return an order array
      * @throws PathException when type not found
@@ -102,7 +102,7 @@ public class TransformOption {
     /**
      * Method check file type
      *
-     * @param path checked path
+     * @param path      checked path
      * @param extension is type of file check
      * @return true if type file equals extension
      */

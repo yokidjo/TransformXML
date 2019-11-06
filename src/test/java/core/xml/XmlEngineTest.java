@@ -1,5 +1,6 @@
 package core.xml;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -13,6 +14,20 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class XmlEngineTest {
+
+
+    @BeforeEach
+    void setUp() {
+        Path out = Paths.get("src/test/resources/XmlEngine/out");
+
+        if (!Files.exists(out)) {
+            try {
+                out = Files.createDirectories(out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Test
     void testExistFilesValidate() {
@@ -71,8 +86,6 @@ class XmlEngineTest {
 
         assertThrows(XmlException.class, () -> XmlEngine.validateFile(pathXML, pathXSD));
     }
-
-
 
 
     @Test

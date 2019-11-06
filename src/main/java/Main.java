@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 
 import static core.xml.XmlEngine.OUT_FILE;
@@ -24,7 +25,7 @@ public class Main {
                 printInfo(trOption);
                 transformFile(trOption);
                 System.out.println("Task done.");
-            } catch (PathException | XmlException e) {
+            } catch (PathException | XmlException | InvalidPathException e) {
                 System.out.println("Error! Check logs");
                 logger.error(e.getMessage());
             }
