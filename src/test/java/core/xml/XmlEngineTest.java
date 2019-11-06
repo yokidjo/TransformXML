@@ -1,6 +1,5 @@
 package core.xml;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -14,20 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class XmlEngineTest {
-
-
-    @BeforeEach
-    void setUp() {
-        Path out = Paths.get("src/test/resources/XmlEngine/out");
-
-        if (!Files.exists(out)) {
-            try {
-                out = Files.createDirectories(out);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Test
     void testExistFilesValidate() {
@@ -47,7 +32,7 @@ class XmlEngineTest {
     @Test
     void testNotExistFilesValidate() {
         Path pathXML = Paths.get("src/test/resources/XmlEngine/setUp/books.xml").toAbsolutePath();
-        Path pathXSD = Paths.get("src/test/resources/XmlEngine/badFiles/books.xsd");
+        Path pathXSD = Paths.get("src/test/resources/XmlEngine/badFiles/books.xsd").toAbsolutePath();
         try {
             XmlEngine.validateFile(pathXML, pathXSD);
         } catch (XmlException e) {
@@ -58,13 +43,15 @@ class XmlEngineTest {
     @Test
     void testCreateDir() {
         Path pathXML = Paths.get("src/test/resources/XmlEngine/setUp/books.xml").toAbsolutePath();
-        Path pathXSL = Paths.get("src/test/resources/XmlEngine/setUp/books.xsl");
-        Path pathOUT = Paths.get("src/test/resources/XmlEngine/out");
+        Path pathXSL = Paths.get("src/test/resources/XmlEngine/setUp/books.xsl").toAbsolutePath();
+        Path pathOUT = Paths.get("src/test/resources/XmlEngine/out").toAbsolutePath();
         try {
-            Files.walk(pathOUT)
-                    .sorted(Comparator.reverseOrder())
-                    .map(Path::toFile)
-                    .forEach(File::delete);
+            if (Files.exists(pathOUT)) {
+                Files.walk(pathOUT)
+                        .sorted(Comparator.reverseOrder())
+                        .map(Path::toFile)
+                        .forEach(File::delete);
+            }
             XmlEngine.transformFile(pathXML, pathXSL, pathOUT);
         } catch (IOException | XmlException e) {
             e.printStackTrace();
@@ -74,15 +61,15 @@ class XmlEngineTest {
     @Test
     void testTransformerException() {
         Path pathXML = Paths.get("src/test/resources/XmlEngine/setUp/books.xml").toAbsolutePath();
-        Path pathXSL = Paths.get("src/test/resources/XmlEngine/badFiles/books.xsl");
-        Path pathOUT = Paths.get("src/test/resources/XmlEngine/out");
+        Path pathXSL = Paths.get("src/test/resources/XmlEngine/badFiles/books.xsl").toAbsolutePath();
+        Path pathOUT = Paths.get("src/test/resources/XmlEngine/out").toAbsolutePath();
         assertThrows(XmlException.class, () -> XmlEngine.transformFile(pathXML, pathXSL, pathOUT));
     }
 
     @Test
     void testSAXException() {
-        Path pathXML = Paths.get("src/test/resources/XmlEngine/setUp/books.xml");
-        Path pathXSD = Paths.get("src/test/resources/XmlEngine/badFiles/books.xsd");
+        Path pathXML = Paths.get("src/test/resources/XmlEngine/setUp/books.xml").toAbsolutePath();
+        Path pathXSD = Paths.get("src/test/resources/XmlEngine/badFiles/books.xsd").toAbsolutePath();
 
         assertThrows(XmlException.class, () -> XmlEngine.validateFile(pathXML, pathXSD));
     }

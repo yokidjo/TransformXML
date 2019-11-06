@@ -1,30 +1,13 @@
 package core;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransformOptionTest {
-
-
-    @BeforeEach
-    void setUp() {
-        Path out = Paths.get("src/test/resources/trOption/out");
-
-        if (!Files.exists(out)) {
-            try {
-                out = Files.createDirectories(out);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Test
     void parseArgs() {

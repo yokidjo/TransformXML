@@ -56,14 +56,10 @@ public class TransformOption {
             for (String arg : args) {
                 Path tmpPath = Paths.get(arg).isAbsolute() ? Paths.get(arg) :
                         Paths.get(location.toAbsolutePath().toString(), arg);
-                if (Files.exists(tmpPath, LinkOption.NOFOLLOW_LINKS)) {
-                    if (Files.isDirectory(tmpPath, LinkOption.NOFOLLOW_LINKS)) {
-                        paths[INDEX_ORIGINAL_OUT] = tmpPath.toAbsolutePath();
-                    } else {
-                        checkTypeFile(tmpPath, paths);
-                    }
+                if (Files.exists(tmpPath, LinkOption.NOFOLLOW_LINKS) && !Files.isDirectory(tmpPath, LinkOption.NOFOLLOW_LINKS)) {
+                    checkTypeFile(tmpPath, paths);
                 } else {
-                    throw new PathException("One of the options does not apply to a file or folder");
+                    paths[INDEX_ORIGINAL_OUT] = tmpPath.toAbsolutePath();
                 }
             }
             checkPaths(paths);
