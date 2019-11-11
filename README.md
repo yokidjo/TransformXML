@@ -19,9 +19,9 @@ Transform XML with XSLT
 java -jar TransformXML-1.0.jar ".\books.xml" ".\books.xsd" ".\books.xsl" ".\out"
 ```
 
-*[JaCoCo] - результаты тестов
-*[jar] - загрузить собраный проект
-*[zip] - загрузить файлы для примера
+[JaCoCo] - результаты тестов   
+[jar] - загрузить собраный проект   
+[zip] - загрузить файлы для примера   
 
 [JaCoco]: <https://yokidjo.github.io/report/TransformXML/>
 [jar]: <https://yokidjo.github.io/report/TransformXML/download/TransformXML-1.0.jar>
